@@ -13,13 +13,19 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
     @ExceptionHandler(ConversionFailedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<String> handleConnversion(RuntimeException ex) {
+    public ResponseEntity<String> handleConversion(RuntimeException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(StudentNotFoundException.class)
+    @ExceptionHandler(NotFound.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<String> handleStudentNotFound(RuntimeException ex) {
+    public ResponseEntity<String> handleNotFound(RuntimeException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    class NotFound extends RuntimeException {
+        public NotFound(String message) {
+            super(message);
+        }
     }
 }
